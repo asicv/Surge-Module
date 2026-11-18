@@ -1,0 +1,14 @@
+#!name=GTMC 子账号登录采集
+#!desc=仅在丰云行密码登录成功时保存 HA 所需登录资料；不会修改网络请求。
+
+[MITM]
+hostname = %APPEND% carapp.gtmc.com.cn
+
+[Script]
+gtmc-login-request = type=http-request,pattern=^https://carapp\.gtmc\.com\.cn/api/appgtmc/reg/action/AppUserInfoAction/appUserLogin\.json,script-path=https://raw.githubusercontent.com/asicv/Surge-Module/main/surge/gtmc-login-request.js,engine=webview,requires-body=true,max-size=4096
+gtmc-login-response = type=http-response,pattern=^https://carapp\.gtmc\.com\.cn/api/appgtmc/reg/action/AppUserInfoAction/appUserLogin\.json,script-path=https://raw.githubusercontent.com/asicv/Surge-Module/main/surge/gtmc-login-response.js,requires-body=true,max-size=16384
+gtmc-copy-phone = type=generic,script-path=https://raw.githubusercontent.com/asicv/Surge-Module/main/surge/gtmc-login-copy.js,argument=phone
+gtmc-copy-token = type=generic,script-path=https://raw.githubusercontent.com/asicv/Surge-Module/main/surge/gtmc-login-copy.js,argument=token
+gtmc-copy-user-id = type=generic,script-path=https://raw.githubusercontent.com/asicv/Surge-Module/main/surge/gtmc-login-copy.js,argument=user_id
+gtmc-copy-uuid = type=generic,script-path=https://raw.githubusercontent.com/asicv/Surge-Module/main/surge/gtmc-login-copy.js,argument=uuid
+gtmc-copy-login-form = type=generic,script-path=https://raw.githubusercontent.com/asicv/Surge-Module/main/surge/gtmc-login-copy.js,argument=login_form
